@@ -7,7 +7,7 @@ import {
 
 @Entity('idea')
 export class ideaEntity {
-  @PrimaryGeneratedColumn() uuid: string;
+  @PrimaryGeneratedColumn('uuid') id: string;
 
   @Column('text') idea: string;
 
