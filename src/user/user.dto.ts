@@ -1,4 +1,5 @@
 import { IsString, IsDefined } from 'class-validator';
+import { ideaDTO } from 'src/idea/idea.dto';
 
 export class UserDTO {
   @IsString()
@@ -15,4 +16,5 @@ export interface UserRO {
   username: string;
   created: string;
   token?: string;
+  bookmarks?: Promise<ideaDTO[]>;
 }

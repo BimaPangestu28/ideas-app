@@ -5,6 +5,8 @@ import {
   BeforeInsert,
   CreateDateColumn,
   OneToMany,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
@@ -30,6 +32,10 @@ export class UserEntity {
     this.password = await bcrypt.hash(this.password, 10);
   }
 
+  @ManyToMany(type => ideaEntity, { cascade: true })
+  @JoinTable()
+  bookmarks: ideaEntity;
+
   @OneToMany(type => ideaEntity, idea => idea.author)
   ideas: ideaEntity;
 
@@ -39,6 +45,14 @@ export class UserEntity {
 
     if (showToken) {
       responseObject.token = token;
+    }
+
+    if (this.ideas) {
+      responseObject.ideas = this.ideas;
+    }
+
+    if (this.bookmarks) {
+      responseObject.bookmarks = this.bookmarks;
     }
 
     return responseObject;

@@ -16,5 +16,7 @@ export interface IdeaRO {
   idea: string;
   description: string;
   created: Date;
-  author: Promise<UserRO[]>;
+  author?: Promise<UserRO[]>;
+  likes?: number;
+  dislikes?: number;
 }

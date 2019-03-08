@@ -12,12 +12,14 @@ export class UserService {
   ) {}
 
   async showAll() {
-    const users = await this.userRepository.find();
+    const users = await this.userRepository.find({
+      relations: ['bookmarks', 'ideas'],
+    });
 
     return users.map(user => user.toResponseObject());
   }
 
-  async login(data: UserDTO): Promise<UserRO> {
+  async login(data: UserDTO): Promise<UserRO[]> {
     const { username, password } = data;
 
     const authentication = await this.userRepository.findOne({ username });
@@ -32,7 +34,7 @@ export class UserService {
     return authentication.toResponseObject(true);
   }
 
-  async register(data: UserDTO): Promise<UserRO> {
+  async register(data: UserDTO): Promise<UserRO[]> {
     const { username } = data;
 
     if (await this.userRepository.findOne({ username })) {

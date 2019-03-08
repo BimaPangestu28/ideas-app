@@ -49,4 +49,28 @@ export class IdeaController {
   destroyIdea(@Param('id') id: string, @User('id') user) {
     return this.ideaService.delete(id, user);
   }
+
+  @Post(':id/bookmark')
+  @UseGuards(new AuthGuard())
+  bookmarkIdea(@Param('id') id: string, @User('id') user) {
+    return this.ideaService.bookmark(id, user);
+  }
+
+  @Post(':id/unbookmark')
+  @UseGuards(new AuthGuard())
+  unbookmarkIdea(@Param('id') id: string, @User('id') user) {
+    return this.ideaService.unbookmark(id, user);
+  }
+
+  @Post(':id/like')
+  @UseGuards(new AuthGuard())
+  likeIdea(@Param('id') id: string, @User('id') user) {
+    return this.ideaService.like(id, user);
+  }
+
+  @Post(':id/dislike')
+  @UseGuards(new AuthGuard())
+  dislikeIdea(@Param('id') id: string, @User('id') user) {
+    return this.ideaService.dislike(id, user);
+  }
 }
